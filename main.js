@@ -11,6 +11,9 @@ const jobTypes = {
 
 // Your code will go here
 
+// 'this' represents crew object, 'shipObj' represents ship object
+// shipObj is being put inside this, this now counts as 1 crew member within shipObj
+
 class CrewMember {
   constructor(name, job, specialSkill, ship) {
     this.name = name;
@@ -18,7 +21,13 @@ class CrewMember {
     this.specialSkill = specialSkill;
     this.ship = ship;
   }
+  enterShip(shipObj) {
+    this.ship = shipObj
+    shipObj.crew.push(this)
+  }
 }
+
+// 'this' represents the ship object here
 
 class Ship {
   constructor(name, type, ability, crew) {
@@ -27,24 +36,13 @@ class Ship {
     this.ability = ability;
     this.crew = [];
   }
-}
-
-Object.prototype.enterShip =
-// 'this' represents crew object, 'shipObj' represents ship object
-// shipObj is being put inside this, this now counts as 1 crew member within shipObj
-  function (shipObj) {
-    this.ship = shipObj
-    shipObj.crew.push(this)
-  }
-
-Object.prototype.missionStatement =
-// 'this' represents the ship object here
-  function () {
+  missionStatement() {
     if (this.crew.length > 0) {
       return this.ability
     }
     return "Can't perform a mission yet."
   }
+}
 
 // ******************************************************************************************
 
